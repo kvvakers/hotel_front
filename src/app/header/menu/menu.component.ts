@@ -14,7 +14,7 @@ import {RouterLink, RouterLinkActive} from "@angular/router";
     NgIf
   ],
   templateUrl: './menu.component.html',
-  styleUrls: ['../../app.component.scss', './menu.component.scss']
+  styleUrl: './menu.component.scss'
 })
 export class MenuComponent {
   menuItems:MenuItem[] = [

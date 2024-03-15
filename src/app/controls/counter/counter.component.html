@@ -1,0 +1,5 @@
+<div class="_flex _ai-c _column-gap-16">
+  <app-button (onClick)="decrement()">-</app-button>
+  <span>{{counter + (unitOfMeasure.length > 0 ? ' ' + unitOfMeasure : '')}}</span>
+  <app-button (onClick)="increment()">+</app-button>
+</div>

@@ -1,0 +1,36 @@
+.search {
+  border-radius: 4px;
+  border: 1px solid #CBD4E6;
+  background: #fff;
+  &__city {
+    display: inline-flex;
+    align-items: center;
+    min-width: 320px;
+    padding-left: 32px;
+    &:before {
+      content: '';
+      display: inline-block;
+      background: url("./../../../../../assets/img/icons/arrival.png") no-repeat;
+      width: 32px;
+      height: 32px;
+    }
+  }
+  &__datepicker {
+    padding: 16px 0;
+    ._format {
+      color: #7C8DB0;
+      font-size: 14px;
+      display: inline-block;
+      margin-left: 3px;
+    }
+  }
+  &__stick {
+    width: 1px;
+    height: 48px;
+    background-color: rgba(#7C8DB0, 0.6);
+  }
+  &__button {
+    padding-right: 32px;
+  }
+}
+

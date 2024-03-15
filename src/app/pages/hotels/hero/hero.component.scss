@@ -1,0 +1,18 @@
+.hero {
+  background: url("../../../../assets/img/world-map.png") 0 0 no-repeat;
+  padding: 96px 0;
+  &__title {
+    font-size: 96px;
+    max-width: 756px;
+    text-align: center;
+    font-weight: 800;
+    background: linear-gradient(45deg, #4C89FD 33%, #6B50FD 66%, #4C89FD);
+    display: table;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  &__body {
+
+  }
+}
+

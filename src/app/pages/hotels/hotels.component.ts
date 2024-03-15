@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
+import {HeroComponent} from "./hero/hero.component";
+import {HotelListComponent} from "../../components/hotel-list/hotel-list.component";
 
 @Component({
   selector: 'app-hotels',
   standalone: true,
-  imports: [],
+  imports: [HeroComponent, HotelListComponent],
   templateUrl: './hotels.component.html',
-  styleUrl: './hotels.component.scss'
+  styleUrls: ['./hotels.component.scss']
 })
 export class HotelsComponent {
 

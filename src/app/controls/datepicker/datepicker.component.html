@@ -1,0 +1,20 @@
+<div class="datepicker">
+  <div class=" _ai-c _flex _column-gap-16">
+    <input
+      type="date"
+      name="start-datepicker"
+      [min]="startDate.getNormalDate()"
+      [value]="startDate.getNormalDate()"
+      (change)="startDateEmit($event)"
+    >
+    <span>-</span>
+    <input
+      type="date"
+      name="end-datepicker"
+      [min]="startDate.getNormalDate()"
+      [max]="maxDate"
+      [value]="endDate.getNormalDate()"
+      (change)="endDateEmit($event)">
+  </div>
+
+</div>

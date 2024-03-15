@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {NgClass} from "@angular/common";
 
 @Component({
@@ -8,8 +8,13 @@ import {NgClass} from "@angular/common";
     NgClass
   ],
   templateUrl: './button.component.html',
-  styleUrls: ['../../app.component.scss', './button.component.scss']
+  styleUrl: './button.component.scss'
 })
 export class ButtonComponent {
   @Input() isActive: Boolean = true;
+  @Output() onClick = new EventEmitter<void>;
+
+  onClickEmit():void {
+    this.onClick.emit();
+  }
 }

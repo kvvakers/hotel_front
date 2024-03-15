@@ -13,7 +13,7 @@ import {MenuComponent} from "./menu/menu.component";
     MenuComponent
   ],
   templateUrl: './header.component.html',
-  styleUrl: './../app.component.scss'
+  styleUrl: './header.component.scss'
 })
 export class HeaderComponent {
 

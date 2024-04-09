@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 import {SearchComponent} from "./search/search.component";
+import {HotelItem} from "../../../models/hotel-item";
 
 @Component({
   selector: 'app-hero',
@@ -11,5 +12,8 @@ import {SearchComponent} from "./search/search.component";
   styleUrls: ['./hero.component.scss', '../../../app.component.scss']
 })
 export class HeroComponent {
-
+  @Output() hotelItemsChanged = new EventEmitter<HotelItem[]>();
+  onHotelItemsChanged(hotelItems: HotelItem[]): void {
+    this.hotelItemsChanged.emit(hotelItems);
+  }
 }

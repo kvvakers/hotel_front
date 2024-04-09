@@ -1,8 +1,13 @@
-import { Component } from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 import {InputComponent} from "../../../../controls/input/input.component";
 import {DatepickerComponent} from "../../../../controls/datepicker/datepicker.component";
 import {CounterComponent} from "../../../../controls/counter/counter.component";
 import {ButtonComponent} from "../../../../controls/button/button.component";
+import {HttpClient} from "@angular/common/http";
+import {HotelsService} from "../../../../services/api/hotels/hotels.service";
+import {HotelItem} from "../../../../models/hotel-item";
+import {Store} from "@ngrx/store";
+import {setHotelList} from "../../../../services/store/hotelList/hotelList.actions";
 
 @Component({
   selector: 'app-search',
@@ -16,11 +21,17 @@ import {ButtonComponent} from "../../../../controls/button/button.component";
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss',],
 })
-export class SearchComponent {
+export class SearchComponent{
+  @Output() hotelItemsChanged = new EventEmitter<HotelItem[]>();
+
   counter:number = 1;
   city:String = '';
   startDate:String = '';
   endDate:String = '';
+  constructor(private hotelService: HotelsService, private store: Store) {
+    this.startDate = new Date().toISOString().split("T")[0];
+    this.endDate = new Date().toISOString().split("T")[0];
+  }
   startDateChangeHandler(value: String):void {
     this.startDate = value;
   }
@@ -34,20 +45,16 @@ export class SearchComponent {
     this.city = value;
   }
   submit():void {
-    const data: ISearchParams = {
-      counter: this.counter,
-      city: this.city,
-      startDate: this.startDate,
-      endDate: this.endDate,
-    }
-    console.log(data);
+    this.hotelService.getHotelsWithParams(
+      this.city,
+      this.startDate,
+      this.endDate,
+      this.counter
+    ).subscribe((hotelList:HotelItem[]) => {
+      this.store.dispatch(setHotelList({ hotelList }));
+    });
   }
 }
 
-interface ISearchParams {
-  counter:number;
-  city:String;
-  startDate:String;
-  endDate:String;
-}
+
 

@@ -1,14 +1,5 @@
-<ul class="hotel-list">
-  <li>
-    <app-hotel-item />
-  </li>
-  <li>
-    <app-hotel-item />
-  </li>
-  <li>
-    <app-hotel-item />
-  </li>
-  <li>
-    <app-hotel-item />
+<ul class="hotel-list" *ngIf="list.length > 0">
+  <li *ngFor="let item of list">
+    <app-hotel-item [hotelItem]="item"/>
   </li>
 </ul>

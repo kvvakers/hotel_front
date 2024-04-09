@@ -1,13 +1,18 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {HotelItem} from "../../models/hotel-item";
+import {RouterLink} from "@angular/router";
+import {NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-hotel-item',
   standalone: true,
-  imports: [],
+  imports: [
+    RouterLink,
+    NgIf
+  ],
   templateUrl: './hotel-item.component.html',
   styleUrl: './hotel-item.component.scss'
 })
 export class HotelItemComponent {
-  hotelItem: HotelItem = new HotelItem('name', '../../assets/img/temp.png', 'description', 300, 'cityName', 4);
+ @Input() hotelItem: HotelItem | null = null;
 }

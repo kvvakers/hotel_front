@@ -65,12 +65,24 @@ button {
   font-size: 24px;
   font-weight: 700;
 }
+._title-xl {
+  font-size: 48px;
+  font-weight: 700;
+}
 
 // ================================================== layout styles
 
-
+._grid {
+  display: grid;
+}
+._grid-col-2 {
+  grid-template-columns: repeat(2, 50%);
+}
 ._flex {
   display: flex;
+}
+._flex-50 {
+  flex: 1 1 50%;
 }
 ._fd-col {
   flex-direction: column;
@@ -90,6 +102,12 @@ button {
 ._column-gap-32 {
   column-gap: 32px;
 }
+._column-gap-48 {
+  column-gap: 48px;
+}
+._column-gap-64 {
+  column-gap: 64px;
+}
 ._row-gap-8 {
   row-gap: 8px;
 }
@@ -105,4 +123,9 @@ button {
 header {
   padding: 20px 0;
 }
-
+// ================================================== images styles
+._image{
+  img {
+    width: 100%;
+  }
+}

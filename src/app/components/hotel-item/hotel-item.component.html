@@ -1,14 +1,13 @@
-<div class="hotel-item">
-  <a href="#" class="_flex _fd-col _row-gap-16">
+<div class="hotel-item" *ngIf="hotelItem">
+  <a [routerLink]="'hotel/' + hotelItem.getId()" class="_flex _fd-col _row-gap-16">
     <div class="hotel-item__image">
-      <img [src]="hotelItem.getImage()" alt="">
+      <img src="data:image/jpeg;base64,{{hotelItem.getImage()}}" alt="">
     </div>
     <div class="hotel-item__info _flex _row-gap-8 _fd-col">
       <div class="_flex _ai-c _jc-sb">
         <h3>{{ hotelItem.getName() }}</h3>
         <h4>{{ hotelItem.getCityName() }}</h4>
       </div>
-      <h3>${{ hotelItem.getPrice() }} per day</h3>
     </div>
   </a>
 </div>

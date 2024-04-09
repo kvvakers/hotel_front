@@ -1,0 +1,13 @@
+<div class="_flex _ai-c search _column-gap-32">
+  <app-counter unitOfMeasure="persons" (onChange)="onCounterChangeHandler($event)"/>
+  <span class="search__stick"></span>
+  <div class="search__datepicker">
+    <app-datepicker
+      (onStartDateChange)="startDateChangeHandler($event)"
+      (onEndDateChange)="endDateChangeHandler($event)"
+    />
+    <span class="_format">mm/dd/yyyy</span>
+  </div>
+  <span class="search__stick"></span>
+  <app-button class="search__button" (onClick)="submit()">Search!</app-button>
+</div>

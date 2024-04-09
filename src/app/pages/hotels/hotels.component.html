@@ -1,7 +1,7 @@
 <div class="_container _flex _fd-col _row-gap-96">
-  <app-hero />
+  <app-hero (hotelItemsChanged)="onHotelItemsChanged($event)"/>
   <div class=" _flex _fd-col _row-gap-32">
     <h2 class="_big-title">Find your next adventure here!</h2>
-    <app-hotel-list />
+    <app-hotel-list [list]="hotelList"/>
   </div>
 </div>

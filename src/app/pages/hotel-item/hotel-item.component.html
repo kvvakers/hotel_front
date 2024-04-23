@@ -13,7 +13,7 @@
     </div>
   </div>
   <div>
-    <app-search />
+    <app-search (roomItemsChanged)="onRoomsItemsChanged($event)"/>
     <ul *ngIf="hotel.getRoomList().length > 0" style="margin-top: 32px" class="_flex _fd-col _row-gap-16">
       <li *ngFor="let item of hotel.getRoomList()">
        <div class="_flex _column-gap-48 _ai-c">

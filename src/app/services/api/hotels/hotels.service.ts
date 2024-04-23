@@ -28,12 +28,12 @@ export class HotelsService extends ApiService {
     return this.httpClient
       .get<any[]>(this.url + this.endpoint, { headers: this.headers })
       .pipe(
-        map(items => {
-          return items.map(item => {
+        map((items: IHotel[]) => {
+          return items.map((item: IHotel) => {
             const roomList: Array<RoomItem> = [];
-            item.roomList.forEach((el: { roomId: number; bedNumbers: number; price: number; hotelId: number; }) => {
+            item.roomList.forEach((el: IRoom) => {
               roomList.push(new RoomItem(el.roomId, el.bedNumbers, el.price, el.hotelId));
-            })
+            });
             return new HotelItem(
               item.hotelId,
               item.hotelName,
@@ -42,9 +42,26 @@ export class HotelsService extends ApiService {
               item.cityName,
               item.rating,
               roomList,
-            )
+            );
           })
         })
       );
   }
 }
+
+interface IRoom {
+  roomId: number;
+  bedNumbers: number;
+  price: number;
+  hotelId: number;
+}
+interface IHotel {
+    hotelId: number;
+    hotelName: string;
+    image: string;
+    description: string;
+    cityName: string;
+    rating: number;
+    roomList: IRoom[];
+}
+

@@ -22,8 +22,6 @@ import {setHotelList} from "../../../../services/store/hotelList/hotelList.actio
   styleUrls: ['./search.component.scss',],
 })
 export class SearchComponent{
-  @Output() hotelItemsChanged = new EventEmitter<HotelItem[]>();
-
   counter:number = 1;
   city:String = '';
   startDate:String = '';

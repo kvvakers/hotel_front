@@ -49,8 +49,25 @@ button {
 }
 // ================================================== main styles
 
+app-root {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+main {
+  flex: 1 1 100%;
+}
+
 ._container {
   max-width: 1840px;
+  padding: 0 40px;
+  margin: 0 auto;
+
+  font-size: 18px;
+  font-family: "Nunito Sans";
+}
+._container-600 {
+  max-width: 600px;
   padding: 0 40px;
   margin: 0 auto;
 

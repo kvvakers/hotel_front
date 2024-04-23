@@ -7,7 +7,7 @@ export class HotelItem {
   private description: string = '';
   private cityName: string = '';
   private rating: number = 0;
-  private roomList: Array<RoomItem> = [];
+  public roomList: RoomItem[] = [];
 
   constructor(hotelId:number, hotelName:string, image:string, description:string, cityName:string, rating:number, roomList: RoomItem[]) {
     this.hotelId = hotelId;

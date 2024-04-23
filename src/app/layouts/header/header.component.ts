@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {NgForOf} from "@angular/common";
 import {RouterLink, RouterLinkActive} from "@angular/router";
-import {MenuComponent} from "./menu/menu.component";
+import {MenuComponent} from "./components/menu/menu.component";
 
 @Component({
   selector: 'app-header',

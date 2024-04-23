@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {ButtonComponent} from "../../controls/button/button.component";
+import {ButtonComponent} from "../../../../controls/button/button.component";
 import {NgForOf, NgIf} from "@angular/common";
 import {RouterLink, RouterLinkActive} from "@angular/router";
 

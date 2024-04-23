@@ -1,5 +1,5 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import {HeroComponent} from "./hero/hero.component";
+import {HeroComponent} from "./components/hero/hero.component";
 import {HotelListComponent} from "../../components/hotel-list/hotel-list.component";
 import {HotelItem} from "../../models/hotel-item";
 import {Observable, Subscription} from "rxjs";
@@ -18,9 +18,7 @@ export class HotelsComponent implements OnInit, OnDestroy {
   hotelList: HotelItem[] = [];
   private hotelsSubscription: Subscription | undefined;
   constructor(private store: Store) { }
-  onHotelItemsChanged(hotelItems: HotelItem[]): void {
-    this.hotelList = [...hotelItems];
-  }
+
 
   ngOnInit(): void {
       this.hotelsSubscription = this.store

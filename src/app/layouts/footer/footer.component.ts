@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {MenuComponent} from "../header/menu/menu.component";
+import {MenuComponent} from "../header/components/menu/menu.component";
 
 @Component({
   selector: 'app-footer',

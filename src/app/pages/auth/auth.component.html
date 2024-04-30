@@ -1,0 +1,15 @@
+<div class="account _container-600">
+  <h3 class="_title-xl">Authorization</h3>
+  <ul class="account__menu _flex _fd-col _row-gap-16 ">
+    <li class="account__item" *ngFor="let item of formItems">
+      <h5>{{item.name}}</h5>
+      <div class="account__input">
+        <app-input [placeholder]="item.placeholder" (onChange)="item.action($event)"/>
+      </div>
+    </li>
+  </ul>
+  <div class="_flex _ai-c _fd-col _row-gap-16">
+    <span style="color: #c00000;" *ngIf="error.length > 0">{{ error }}</span>
+    <app-button (onClick)="submit()">Authorization</app-button>
+  </div>
+</div>

@@ -4,6 +4,8 @@ import {HttpClient} from "@angular/common/http";
 import {map, Observable, retry} from "rxjs";
 import {HotelItem} from "../../../models/hotel-item";
 import {RoomItem} from "../../../models/room-item";
+import {IHotel} from "../../../models/hotel-interface";
+import {IRoom} from "../../../models/room-interface";
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +28,7 @@ export class HotelsService extends ApiService {
 
   private getRequest() : Observable<HotelItem[]> {
     return this.httpClient
-      .get<any[]>(this.url + this.endpoint, { headers: this.headers })
+      .get<IHotel[]>(this.url + this.endpoint, { headers: this.headers })
       .pipe(
         map((items: IHotel[]) => {
           return items.map((item: IHotel) => {
@@ -49,19 +51,5 @@ export class HotelsService extends ApiService {
   }
 }
 
-interface IRoom {
-  roomId: number;
-  bedNumbers: number;
-  price: number;
-  hotelId: number;
-}
-interface IHotel {
-    hotelId: number;
-    hotelName: string;
-    image: string;
-    description: string;
-    cityName: string;
-    rating: number;
-    roomList: IRoom[];
-}
+
 

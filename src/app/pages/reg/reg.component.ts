@@ -1,8 +1,13 @@
 import { Component } from '@angular/core';
-import {InputComponent} from "../../../controls/input/input.component";
-import {ButtonComponent} from "../../../controls/button/button.component";
+import {InputComponent} from "../../controls/input/input.component";
+import {ButtonComponent} from "../../controls/button/button.component";
 import {NgForOf, NgIf} from "@angular/common";
-import {User} from "../../../models/user";
+import {User} from "../../models/user";
+import {FormItem} from "../../models/form-item";
+import {Validator} from "../../models/validator";
+import {AccountService} from "../../services/api/account/account.service";
+import {IRespondedUser} from "../../models/responded-user-interface";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-reg',
@@ -19,7 +24,8 @@ import {User} from "../../../models/user";
 export class RegComponent {
   user:User = new User();
   error: string = "";
-  formItems: Item[] = [
+  success: string = "";
+  formItems: FormItem[] = [
     {
       placeholder: "Email",
       action: (value: String) => {
@@ -66,7 +72,7 @@ export class RegComponent {
         }
         this.error = "Surname is not correct"
       },
-      name: "Enter surname *"
+      name: "Enter surname *",
     },
     {
       placeholder: "Phone",
@@ -76,43 +82,34 @@ export class RegComponent {
           this.error = "";
           return;
         }
-        this.error = "Phone is not correct"
+        this.error = "Phone is not correct";
       },
-      name: "Enter phone *"
+      name: "Enter phone *",
     },
   ];
+
+  constructor(private accountService: AccountService, private router: Router) {
+
+  }
   submit(): void {
-    if (this.error.length != 0 || this.user.isValid) return;
-    console.log(this.user);
-  }
-}
-class Validator {
-  public static validateEmail(email: String): boolean {
-    return (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.toString()))
-  }
-  public static validatePassword(password:String):boolean {
-    return (/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(password.toString()))
-  }
-  public static validateFirstName(firstName:String):boolean {
-    return (/^[a-zA-Z]{2,}$/.test(firstName.toString()))
-  }
-  public static validateSurname(surname:String):boolean {
-    return (/^[a-zA-Z]{2,}$/.test(surname.toString()))
-  }
-  public static validatePhone(phone:String):boolean {
-    return (/^\d{10,12}$/.test(phone.split(' ').join('').toString()))
+    if (!this.user.isValid) return;
+    this.accountService.registration(this.user)
+      .subscribe(
+      (data: IRespondedUser) => {
+        this.error = "";
+        this.success = "You are molodets!";
+        if (data.token.length > 0) {
+          localStorage.setItem("access_token", data.token);
+          this.router.navigate(['account']);
+        }
+      },
+      (error) => {
+        this.success = "";
+        this.error = error.error;
+        localStorage.removeItem("access_token")
+      });
   }
 }
 
-class Item {
-  placeholder: string = "Email";
-  action: (value: String) => void;
-  name: string = "Enter email *";
 
 
-  constructor(placeholder: string, action: (value: String) => void, name: string) {
-    this.placeholder = placeholder;
-    this.action = action;
-    this.name = name;
-  }
-}

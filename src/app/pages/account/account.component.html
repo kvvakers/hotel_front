@@ -1,1 +1,24 @@
-<div>acc</div>
+<div class="account _container">
+  <div class="_flex _fd-col _row-gap-64">
+    <div class="account__info _flex _column-gap-48">
+      <div><span>Name:</span> {{user.getFirstName()}}</div>
+      <div><span>Surname:</span> {{user.getSurname()}}</div>
+      <div><span>Phone:</span> {{user.getPhone()}}</div>
+      <div><span>Email:</span> {{user.getEmail()}}</div>
+    </div>
+    <div class="tabs">
+      <ul class="tabs__header _flex">
+        <li class="tabs__header-item" [ngClass]="tabStatus == Tab.HOTELS ? '_active' : ''" (click)="changeTab(Tab.HOTELS)">My hotels</li>
+        <li class="tabs__header-item" [ngClass]="tabStatus == Tab.DEALS ? '_active' : ''" (click)="changeTab(Tab.DEALS)">My deals</li>
+      </ul>
+      <div class="tabs__content">
+        <div class="content-tab" [ngClass]="tabStatus == Tab.HOTELS ? '_active' : ''">
+          <ul class="content-tab__hotel-list _flex _fd-col _row-gap-32">
+            <app-tab-hotel-item *ngFor="let hotel of hotelList" [hotelUI]="hotel" (onListToggle)="ListToggleHandler($event)"/>
+          </ul>
+        </div>
+        <div class="content-tab" [ngClass]="tabStatus == Tab.DEALS ? '_active' : ''">content2</div>
+      </div>
+    </div>
+  </div>
+</div>

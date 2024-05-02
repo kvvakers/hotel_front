@@ -6,7 +6,7 @@
   </ul>
   <ul *ngIf="isNotAuthorized; else elseBlock" class="_flex _jc-sb _ai-c _column-gap-32">
     <li *ngFor="let item of buttonItems">
-      <app-button [isActive]="item.isActive">{{ item.name }}</app-button>
+      <app-button routerLink="{{item.link}}" [isActive]="item.isActive">{{ item.name }}</app-button>
     </li>
   </ul>
   <ng-template #elseBlock>

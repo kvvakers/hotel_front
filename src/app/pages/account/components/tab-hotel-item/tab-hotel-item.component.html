@@ -1,0 +1,20 @@
+<li class="content-tab__hotel-item tab-hotel-item">
+  <div class="_flex _column-gap-32">
+    <div class="_flex _column-gap-32 _ai-c">
+      <img src="" alt="img">
+      <div class="tab-hotel-item__name">hotel</div>
+      <div class="tab-hotel-item__city">city</div>
+    </div>
+    <div class="_flex _column-gap-16">
+      <app-button>Edit</app-button>
+      <app-button (click)="toggle()">Show rooms</app-button>
+      <app-button>Add room</app-button>
+    </div>
+  </div>
+  <ul class="tab-hotel-item__room-list tab-room-list _flex _fd-col _row-gap-16" *ngIf="hotelUI?.isOpened">
+    <app-tab-room-item />
+    <app-tab-room-item />
+    <app-tab-room-item />
+    <app-tab-room-item />
+  </ul>
+</li>

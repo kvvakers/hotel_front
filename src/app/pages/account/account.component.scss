@@ -1,0 +1,28 @@
+.account__info {
+  padding: 0 32px;
+  span {
+    color: #605DEC;
+  }
+}
+.tabs {
+  &__header-item {
+    padding: 16px 32px;
+    color: #605DEC;
+    &._active {
+      border-bottom: 1px solid #6B50FD;
+    }
+  }
+}
+.content-tab {
+  padding: 32px 32px;
+  display: none;
+  &._active {
+    display: block;
+  }
+}
+.tab-hotel-item {
+  &__room-list {
+    padding-top: 32px;
+    padding-left: 16px;
+  }
+}

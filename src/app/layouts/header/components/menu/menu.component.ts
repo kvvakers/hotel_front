@@ -24,8 +24,8 @@ export class MenuComponent {
     new MenuItem("Account", "/account"),
   ];
   buttonItems:ButtonItem[] = [
-    {name: "Sign in", isActive: false},
-    {name: "Sign up", isActive: true}
+    {name: "Sign in", isActive: false, link: "/account/auth"},
+    {name: "Sign up", isActive: true, link: "/account/reg"}
   ];
   isNotAuthorized:Boolean = true;
 }
@@ -40,9 +40,11 @@ class MenuItem {
 class ButtonItem {
   name: String;
   isActive: Boolean;
+  link: String;
 
-  constructor(name:String, isActive:Boolean) {
+  constructor(name:String, isActive:Boolean, link:String) {
     this.name = name;
     this.isActive = isActive;
+    this.link = link;
   }
 }

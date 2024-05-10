@@ -36,7 +36,8 @@ export class RegComponent {
        }
        this.error = "Email is not correct";
       },
-      name: "Enter email *"
+      name: "Enter email *",
+      initValue: "",
     },
     {
       placeholder: "Password",
@@ -48,7 +49,8 @@ export class RegComponent {
         }
         this.error = "Password is not correct"
       },
-      name: "Enter password *"
+      name: "Enter password *",
+      initValue: "",
     },
     {
       placeholder: "First name",
@@ -60,7 +62,8 @@ export class RegComponent {
         }
         this.error = "First name is not correct"
       },
-      name: "Enter first name *"
+      name: "Enter first name *",
+      initValue: "",
     },
     {
       placeholder: "Surname",
@@ -73,6 +76,7 @@ export class RegComponent {
         this.error = "Surname is not correct"
       },
       name: "Enter surname *",
+      initValue: "",
     },
     {
       placeholder: "Phone",
@@ -85,6 +89,7 @@ export class RegComponent {
         this.error = "Phone is not correct";
       },
       name: "Enter phone *",
+      initValue: "",
     },
   ];
 

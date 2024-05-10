@@ -1,5 +1,5 @@
 <div class="hotel-item" *ngIf="hotelItem">
-  <a [routerLink]="'hotel/' + hotelItem.getId()" class="_flex _fd-col _row-gap-16">
+  <a [routerLink]="'/hotel/' + hotelItem.getId()" class="_flex _fd-col _row-gap-16">
     <div class="hotel-item__image">
       <img src="data:image/jpeg;base64,{{hotelItem.getImage()}}" alt="">
     </div>

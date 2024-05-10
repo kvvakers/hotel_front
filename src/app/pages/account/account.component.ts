@@ -2,11 +2,16 @@ import {Component, OnInit} from "@angular/core";
 import {ButtonComponent} from "../../controls/button/button.component";
 import {NgClass, NgForOf} from "@angular/common";
 import {TabHotelItemComponent} from "./components/tab-hotel-item/tab-hotel-item.component";
-import {IHotelUI} from "./models/interface-hotel-ui";
+import {HotelItemUI} from "./models/interface-hotel-ui";
 import {Tab} from "./models/tab";
-import {HotelItem} from "../../models/hotel-item";
 import {AccountService} from "../../services/api/account/account.service";
 import {User} from "../../models/user";
+import {HotelsService} from "../../services/api/hotels/hotels.service";
+import {Router, RouterLink} from "@angular/router";
+import {HotelItem} from "../../models/hotel-item";
+import {Store} from "@ngrx/store";
+import {selectIsAuthorized} from "../../services/store/account/account.selectors";
+import {setIsAuthorized} from "../../services/store/account/account.actions";
 import {IRespondedUser} from "../../models/responded-user-interface";
 @Component({
   selector: 'app-account',
@@ -15,7 +20,8 @@ import {IRespondedUser} from "../../models/responded-user-interface";
     ButtonComponent,
     NgClass,
     TabHotelItemComponent,
-    NgForOf
+    NgForOf,
+    RouterLink
   ],
   templateUrl: './account.component.html',
   styleUrl: './account.component.scss',
@@ -27,45 +33,49 @@ export class AccountComponent implements OnInit{
     this.tabStatus = value;
   }
 
-  hotelList: IHotelUI[] = [
-    {
-      id: 0,
-      isOpened: false,
-      item: {},
-    },
-    {
-      id: 1,
-      isOpened: false,
-      item: {},
-    },
-    {
-      id: 2,
-      isOpened: false,
-      item: {},
-    },
-    {
-      id: 3,
-      isOpened: false,
-      item: {},
-    },
-  ];
+  hotelList: HotelItemUI[] = [];
 
-  constructor(private accountService: AccountService) {
-  }
-  ListToggleHandler(id: number) : void {
-   for (let i : number = 0; i < this.hotelList.length; ++i) {
-     if (this.hotelList[i].id == id) this.hotelList[i].isOpened = !this.hotelList[i].isOpened;
-   }
-    console.log(this.hotelList)
+  constructor(
+    private accountService: AccountService,
+    private hotelService: HotelsService,
+    private router: Router,
+    private store: Store
+  ) {
   }
   ngOnInit():void {
-    this.accountService.getUserData().subscribe(data => {
+    this.getMe();
+
+  }
+
+  getMe(): void {
+    this.accountService.getUserData().subscribe((data: IRespondedUser): void => {
       this.user.setEmail(data.email);
       this.user.setFirstName(data.name);
       this.user.setSurname(data.surname);
       this.user.setPhone(data.phone);
+
+      this.store.dispatch(setIsAuthorized({ isAuthorized: true }));
+
+      this.getMy();
+    }, (): void => {
+      this.store.dispatch(setIsAuthorized({ isAuthorized: false }));
+      this.router.navigate(["account/auth"]);
     });
   }
+  getMy(): void {
+    this.hotelService.getMyHotels().subscribe((data: HotelItem[]): void => {
+      data.forEach((item: HotelItem): void => {
+        this.hotelList.push(new HotelItemUI(this.hotelList.length, false, item));
+      })
+    });
+  }
+
+  ListToggleHandler(id: number) : void {
+   for (let i : number = 0; i < this.hotelList.length; ++i) {
+     if (this.hotelList[i].getId() == id) this.hotelList[i].invertIsOpened();
+   }
+  }
+
   // ------
   protected readonly Tab = Tab;
 }

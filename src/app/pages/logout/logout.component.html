@@ -1,0 +1,12 @@
+<div class="_container">
+  <div class="_flex _fd-col _row-gap-16" style="padding-top: 5vh">
+    <h1 class="_title-xl _ta-c">
+      Log Out
+    </h1>
+    <p class="_ta-c">Are you sure do you want to log out from the account</p>
+    <div class="_flex _jc-c _column-gap-16">
+      <app-button routerLink="/home" [isActive]="true" class="_ta-c">Go To Home Page</app-button>
+      <app-button (click)="logout()" [isActive]="false" class="_ta-c">Log Out</app-button>
+    </div>
+  </div>
+</div>

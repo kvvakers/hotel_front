@@ -25,4 +25,12 @@
     padding-top: 32px;
     padding-left: 16px;
   }
+  &__preview,
+  &__description {
+    width: 200px;
+  }
+  &__name,
+  &__city {
+    width: 100px;
+  }
 }

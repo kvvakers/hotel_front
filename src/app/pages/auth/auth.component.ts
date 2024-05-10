@@ -27,12 +27,14 @@ export class AuthComponent  {
     {
       placeholder: "Email",
       action: (value: String) => this.user.setEmail(value),
-      name: "Enter email *"
+      name: "Enter email *",
+      initValue: "",
     },
     {
       placeholder: "Password",
       action: (value: String) => this.user.setPassword(value),
-      name: "Enter password *"
+      name: "Enter password *",
+      initValue: "",
     },
   ];
 

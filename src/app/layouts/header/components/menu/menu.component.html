@@ -4,12 +4,12 @@
       <a routerLink="{{item.url}}" routerLinkActive="_active">{{ item.name }}</a>
     </li>
   </ul>
-  <ul *ngIf="isNotAuthorized; else elseBlock" class="_flex _jc-sb _ai-c _column-gap-32">
+  <ul *ngIf="!isAuthorized; else elseBlock" class="_flex _jc-sb _ai-c _column-gap-32">
     <li *ngFor="let item of buttonItems">
       <app-button routerLink="{{item.link}}" [isActive]="item.isActive">{{ item.name }}</app-button>
     </li>
   </ul>
   <ng-template #elseBlock>
-    <app-button  [isActive]="true">Log Out</app-button>
+    <app-button [isActive]="true" routerLink="account/exit">Log Out</app-button>
   </ng-template>
 </div>

@@ -9,13 +9,17 @@ export class ApiService {
   protected url: string = `http://localhost:8080/api/`;
   protected headers: HttpHeaders | undefined = undefined;
   constructor(protected httpClient: HttpClient) {
+    this.headers = this.getHeaders();
+  }
+
+  getHeaders(): HttpHeaders {
     const token : string | null = localStorage.getItem("access_token");
-    this.headers = new HttpHeaders({
+    return new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': token != null ? token : '',
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
       'Access-Control-Allow-Headers': 'Content-type, Authorization',
-    })
+    });
   }
 }

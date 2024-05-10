@@ -1,8 +1,10 @@
 import {Component, EventEmitter, Input, Output} from "@angular/core";
 import {ButtonComponent} from "../../../../controls/button/button.component";
-import {NgClass, NgIf} from "@angular/common";
+import {NgClass, NgForOf, NgIf} from "@angular/common";
 import {TabRoomItemComponent} from "../tab-room-item/tab-room-item.component";
-import {IHotelUI} from "../../models/interface-hotel-ui";
+import {HotelItemUI} from "../../models/interface-hotel-ui";
+import {RouterLink} from "@angular/router";
+import {ImageSliderComponent} from "../../../../controls/image-slider/image-slider.component";
 
 @Component({
   selector: 'app-tab-hotel-item',
@@ -12,15 +14,18 @@ import {IHotelUI} from "../../models/interface-hotel-ui";
     NgClass,
     TabRoomItemComponent,
     NgIf,
+    NgForOf,
+    RouterLink,
+    ImageSliderComponent,
   ],
   templateUrl: './tab-hotel-item.component.html',
   styleUrl: './../../account.component.scss',
 })
 export class TabHotelItemComponent {
-  @Input() hotelUI : IHotelUI | undefined;
+  @Input({ required: true }) hotelUI!: HotelItemUI;
   @Output() onListToggle : EventEmitter<number> = new EventEmitter<number>();
 
   toggle() : void {
-    this.onListToggle.emit((this.hotelUI != undefined ? this.hotelUI.id : -1));
+    this.onListToggle.emit(this.hotelUI.getId());
   }
 }

@@ -9,6 +9,7 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 })
 export class InputComponent {
   @Input() placeholder: string = '';
+  @Input() value: string = '';
   @Output() onChange = new EventEmitter<String>
 
   onChangeEmit(event:any):void {

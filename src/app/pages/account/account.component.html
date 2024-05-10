@@ -13,7 +13,8 @@
       </ul>
       <div class="tabs__content">
         <div class="content-tab" [ngClass]="tabStatus == Tab.HOTELS ? '_active' : ''">
-          <ul class="content-tab__hotel-list _flex _fd-col _row-gap-32">
+          <app-button routerLink="/account/add-hotel/-1">Add hotel</app-button>
+          <ul class="content-tab__hotel-list _flex _fd-col _row-gap-32" style="margin-top: 24px">
             <app-tab-hotel-item *ngFor="let hotel of hotelList" [hotelUI]="hotel" (onListToggle)="ListToggleHandler($event)"/>
           </ul>
         </div>

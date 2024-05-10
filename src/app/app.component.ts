@@ -6,6 +6,7 @@ import {HotelsService} from "./services/api/hotels/hotels.service";
 import {HotelItem} from "./models/hotel-item";
 import {setHotelList} from "./services/store/hotelList/hotelList.actions";
 import {Store} from "@ngrx/store";
+import {ImageSliderComponent} from "./controls/image-slider/image-slider.component";
 
 @Component({
   selector: 'app-root',
@@ -14,6 +15,7 @@ import {Store} from "@ngrx/store";
     RouterOutlet,
     HeaderComponent,
     FooterComponent,
+    ImageSliderComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'

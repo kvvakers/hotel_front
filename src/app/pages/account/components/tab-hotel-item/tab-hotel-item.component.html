@@ -1,20 +1,19 @@
 <li class="content-tab__hotel-item tab-hotel-item">
-  <div class="_flex _column-gap-32">
+  <div class="_flex _column-gap-32 _ai-c">
     <div class="_flex _column-gap-32 _ai-c">
-      <img src="" alt="img">
-      <div class="tab-hotel-item__name">hotel</div>
-      <div class="tab-hotel-item__city">city</div>
+      <div class="_image tab-hotel-item__preview">
+        <img src="data:image/jpeg;base64,{{ hotelUI.getHotelItem().getImage() }}" alt="img">
+      </div>
+      <div class="tab-hotel-item__name">{{ hotelUI.getHotelItem().getName() }}</div>
+      <div class="tab-hotel-item__city">{{ hotelUI.getHotelItem().getCityName() }}</div>
+      <div class="tab-hotel-item__description">{{ hotelUI.getHotelItem().getDescription() }}</div>
     </div>
     <div class="_flex _column-gap-16">
-      <app-button>Edit</app-button>
-      <app-button (click)="toggle()">Show rooms</app-button>
-      <app-button>Add room</app-button>
+      <app-button routerLink="/account/add-hotel/{{ hotelUI.getHotelItem().getId() }}">Edit</app-button>
+      <app-button (click)="toggle()">{{ hotelUI.getIsOpened() ? "Hide" : "Show" }} rooms</app-button>
     </div>
   </div>
-  <ul class="tab-hotel-item__room-list tab-room-list _flex _fd-col _row-gap-16" *ngIf="hotelUI?.isOpened">
-    <app-tab-room-item />
-    <app-tab-room-item />
-    <app-tab-room-item />
-    <app-tab-room-item />
+  <ul class="tab-hotel-item__room-list tab-room-list _flex _fd-col _row-gap-16" *ngIf="hotelUI.getIsOpened()">
+    <app-tab-room-item *ngFor="let item of hotelUI.getHotelItem().getRoomList()" [room]="item" />
   </ul>
 </li>

@@ -34,7 +34,7 @@ button{cursor: pointer;}
 button::-moz-focus-inner {padding:0;border:0;}
 a, a:visited{text-decoration: none;}
 a:hover{text-decoration: none;}
-ul li{list-style: none;}
+ul li, ol li{list-style: none;}
 img{vertical-align: top;}
 
 h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight: 400;}
@@ -53,6 +53,9 @@ app-root {
   display: flex;
   flex-direction: column;
   height: 100%;
+  font-size: 18px;
+  font-family: "Nunito Sans";
+  overflow-x: hidden;
 }
 main {
   flex: 1 1 100%;
@@ -63,16 +66,11 @@ main {
   padding: 0 40px;
   margin: 0 auto;
 
-  font-size: 18px;
-  font-family: "Nunito Sans";
 }
 ._container-600 {
   max-width: 600px;
   padding: 0 40px;
   margin: 0 auto;
-
-  font-size: 18px;
-  font-family: "Nunito Sans";
 }
 ._title {
   font-size: 18px;
@@ -86,6 +84,9 @@ main {
   font-size: 48px;
   font-weight: 700;
 }
+._ta-c {
+  text-align: center;
+}
 
 // ================================================== layout styles
 
@@ -97,6 +98,9 @@ main {
 }
 ._flex {
   display: flex;
+}
+._flex-wrap-w {
+  flex-wrap: wrap;
 }
 ._flex-50 {
   flex: 1 1 50%;

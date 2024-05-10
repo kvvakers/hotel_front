@@ -1,0 +1,7 @@
+<swiper-container init="false" virtual="true">
+  <swiper-slide *ngFor="let item of slides">
+    <div [style.height]="height + 'px'" class="swiper-image">
+      <img src="data:image/jpeg;base64,{{ item.getImage() }}" alt="">
+    </div>
+  </swiper-slide>
+</swiper-container>

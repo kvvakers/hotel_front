@@ -1,0 +1,71 @@
+<div class="_container">
+  <h2 class="_title-xl _ta-c" style="padding: 24px 0 48px;">Adding hotel page</h2>
+  <section style="margin-bottom: 32px" class="_flex _fd-col _row-gap-32">
+    <section>
+      <h3 class="_big-title" style="margin-bottom: 24px">Adding the hotel</h3>
+      <div class="_flex _column-gap-32">
+        <ul class="_flex-50 _flex _fd-col _row-gap-16">
+          <li *ngFor="let item of formItems">
+            <h3 class="_title">{{ item.name }}</h3>
+            <div style="margin-top: 8px; border: 1px solid #7C8DB0;">
+              <app-input
+                [placeholder]="item.placeholder"
+                (onChange)="item.action($event)"
+                [value]="item.initValue"
+              />
+            </div>
+          </li>
+        </ul>
+        <div class="_flex-50">
+          <div *ngIf="hotel.getImage().length != 0" class="_image" style="margin-bottom: 16px;">
+            <img src="data:image/jpeg;base64,{{ hotel.getImage() }}" alt="">
+          </div>
+          <h3 class="_title">Preview image of the hotel *</h3>
+          <input
+            style="margin-top: 8px;"
+            type="file"
+            (change)="onFileSelected($event, hotel)"
+          >
+        </div>
+      </div>
+    </section>
+    <section class="_flex _fd-col _row-gap-32">
+      <h3 class="_big-title">Adding rooms to hotel</h3>
+      <app-button (onClick)="addRoom()">Add room</app-button>
+      <ol class="_flex-50 _flex _fd-col _row-gap-16">
+        <li *ngFor="let item of roomFormItems; index as i" class="_flex _ai-c _column-gap-16 _row-gap-8 _ai-c _flex-wrap-w">
+          <h3 class="_title">{{ i + 1 }}</h3>
+          <ul class="_flex _column-gap-16 _ai-c">
+            <li *ngFor="let subItem of item.form">
+              <h4 class="_title">{{ subItem.name }}</h4>
+              <div style="margin-top: 8px; border: 1px solid #7C8DB0;">
+                <app-input
+                  [placeholder]="subItem.placeholder"
+                  (onChange)="subItem.action($event)"
+                  [value]="subItem.initValue"
+                />
+              </div>
+            </li>
+            <li style="max-width: 300px">
+              <app-slider [slides]="item.room.getImages()" [height]="200" />
+              <span *ngFor="let el of item.room.getImages(); index as i">{{i}}</span>
+            </li>
+            <li>
+              <h3 class="_title">Add image to room gallery</h3>
+              <input
+                style="margin-top: 8px;"
+                type="file"
+                (change)="onFileSelected($event, item.room)"
+              >
+            </li>
+          </ul>
+          <span style="color: #c00000; flex: 1 1 100%;" *ngIf="item.error.length > 0" >{{ item.error }}</span>
+        </li>
+      </ol>
+    </section>
+    <section class="_flex _fd-col _row-gap-16">
+      <span style="color: #c00000;" *ngIf="error.length > 0">{{ error }}</span>
+      <app-button (onClick)="saveHotel()">Save the hotel</app-button>
+    </section>
+  </section>
+</div>

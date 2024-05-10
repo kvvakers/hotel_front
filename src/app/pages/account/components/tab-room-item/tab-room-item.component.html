@@ -1,12 +1,13 @@
 <li class="_flex _column-gap-32">
   <div class="_flex _column-gap-32 _ai-c">
-    <div class="tab-room-list__number">number</div>
-    <div class="tab-room-list__description">descr</div>
-    <div class="tab-room-list__bed-numbers">bed numbers</div>
-    <div class="tab-room-list__price">price</div>
+    <div class="tab-room-list__number">{{ room.getRoomId() }}</div>
+    <div class="tab-room-list__bed-numbers">{{ "for " + room.getBedNumbers() + " persons" }}</div>
+    <div class="tab-room-list__price">{{ room.getPrice() + "$ per night" }}</div>
+    <div *ngIf="room.getImages().length > 0" style="max-width: 200px">
+      <app-slider [slides]="room.getImages()" [height]="130" />
+    </div>
   </div>
-  <div class="_flex _column-gap-16">
-    <app-button>Edit</app-button>
-    <app-button>Hide</app-button>
+  <div class="_flex _column-gap-16 _ai-c">
+    <app-button>Make inaccessible</app-button>
   </div>
 </li>

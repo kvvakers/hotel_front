@@ -10,6 +10,7 @@ import {RoomItem} from "../../models/room-item";
 import {ButtonComponent} from "../../controls/button/button.component";
 import {RoomsService} from "../../services/api/rooms/rooms.service";
 import {setHotelList} from "../../services/store/hotelList/hotelList.actions";
+import {ImageSliderComponent} from "../../controls/image-slider/image-slider.component";
 
 @Component({
   selector: 'app-hotel-item',
@@ -18,7 +19,8 @@ import {setHotelList} from "../../services/store/hotelList/hotelList.actions";
     SearchComponent,
     NgIf,
     NgForOf,
-    ButtonComponent
+    ButtonComponent,
+    ImageSliderComponent
   ],
   templateUrl: './hotel-item.component.html',
   styleUrl: './hotel-item.component.scss'
@@ -40,7 +42,6 @@ export class HotelItemComponent implements OnInit, OnDestroy {
       this.hotelsSubscription = this.hotels$.subscribe(hotels => {
         this.hotels = hotels;
         this.hotel = hotels.find(item => item.getId() == this.hotelId);
-        console.log('hotel id:', this.hotelId, this.hotel);
       });
     });
   }

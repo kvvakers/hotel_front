@@ -24,14 +24,7 @@ export class AccountService extends ApiService{
   getUserData(): Observable<IRespondedUser> {
     this.endpoint = "users/me/";
 
-    const token : string | null = localStorage.getItem("access_token");
-    this.headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': token != null ? token : '',
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-type, Authorization',
-    });
+    this.headers = this.headers = this.getHeaders();
 
     return this.httpClient.get<IRespondedUser>(this.url + this.endpoint, { headers: this.headers })
   }

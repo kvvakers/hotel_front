@@ -9,7 +9,8 @@
       <h2 class="_title-xl" style="color:#5d5959;">{{hotel.getName()}}</h2>
       <h3 class="_big-title" style="color: #6B50FD">{{hotel.getCityName()}}</h3>
       <p>{{hotel.getDescription()}}</p>
-      <div class="rating">{{hotel.getRating()}}</div>
+<!--      todo: realize the rating-->
+<!--      <div class="rating">{{"Rating: " + hotel.getRating()}}</div>-->
     </div>
   </div>
   <div>
@@ -18,10 +19,12 @@
       <li *ngFor="let item of hotel.getRoomList()">
        <div class="_flex _column-gap-48 _ai-c">
          <h2>{{item.getRoomId()}} room</h2>
-         <p>description room</p>
          <div>{{item.getBedNumbers()}} bed numbers</div>
          <div>{{item.getPrice()}} dollars</div>
          <app-button>Book</app-button>
+         <div *ngIf="item.getImages().length > 0" style="max-width: 300px">
+           <app-slider [slides]="item.getImages()" [height]="200" />
+         </div>
        </div>
       </li>
     </ul>

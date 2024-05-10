@@ -1,5 +1,5 @@
 <div class="account _container-600">
-  <h3 class="_title-xl">Create account</h3>
+  <h3 class="_title-xl _ta-c">Create account</h3>
   <ul class="account__menu _flex _fd-col _row-gap-16 ">
       <li class="account__item" *ngFor="let item of formItems">
         <h5>{{item.name}}</h5>
@@ -10,7 +10,6 @@
   </ul>
   <div class="_flex _ai-c _fd-col _row-gap-16">
     <span style="color: #c00000;" *ngIf="error.length > 0">{{ error }}</span>
-    <span style="color: #126900;" *ngIf="success.length > 0">{{ success }}</span>
     <app-button (onClick)="submit()">Registration</app-button>
   </div>
 </div>

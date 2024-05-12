@@ -1,16 +1,13 @@
 import {
-  ChangeDetectorRef,
+  AfterViewInit,
   Component,
-  CUSTOM_ELEMENTS_SCHEMA,
-  EventEmitter,
+  CUSTOM_ELEMENTS_SCHEMA, ElementRef,
   Input, OnChanges,
-  OnInit,
-  Output,
-  Renderer2, SimpleChanges
+  OnInit, Renderer2, SimpleChanges, ViewChild,
 } from "@angular/core";
-import {RoomImage} from "../../models/room-image";
+import {Image} from "../../models/image";
 import {NgForOf, NgIf} from "@angular/common";
-import {register, SwiperContainer} from 'swiper/element/bundle';
+import {register} from 'swiper/element/bundle';
 import {SwiperOptions} from "swiper/types";
 import Swiper from "swiper";
 
@@ -19,25 +16,32 @@ import Swiper from "swiper";
   imports: [
     NgForOf,
     NgIf,
+    ImageSliderComponent,
   ],
   templateUrl: "./image-slider.component.html",
   styleUrl: "./image-slider.component.scss",
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class ImageSliderComponent implements OnInit, OnChanges {
+export class ImageSliderComponent implements OnInit, OnChanges, AfterViewInit {
+  @ViewChild("swiperRef") swiperRef!: ElementRef;
   @Input() height: number = 300;
-  @Input({ required: true }) slides: RoomImage[] = [];
-  private swiperInstance!: Swiper;
+  @Input({ required: true }) slides: Image[] = [];
+  private swiper!: Swiper;
+  private swiperEl!: any;
+  vSlides: HTMLElement[] = [];
 
-  constructor(private changeDetectorRef: ChangeDetectorRef) {}
+  constructor(private renderer: Renderer2) {}
 
   ngOnInit(): void {
+  }
+
+  ngAfterViewInit(): void {
     register();
 
-    const swiperEl: SwiperContainer | null = document.querySelector('swiper-container');
+    this.swiperEl = this.swiperRef.nativeElement;
 
-    if (!swiperEl) return;
+    if (!this.swiperEl) return;
     const params: SwiperOptions = {
       injectStyles: [`
       .swiper-button-next,
@@ -75,34 +79,50 @@ export class ImageSliderComponent implements OnInit, OnChanges {
       }
       `],
       navigation: { enabled: true, },
-      on: {
-        init: (swiper: Swiper): void => {
-          this.swiperInstance = swiper;
-          this.updateSwiper();
-        }
-      }
     };
 
-    Object.assign(swiperEl, params);
+    Object.assign(this.swiperEl, params);
 
-    swiperEl.initialize();
+    this.swiperEl.initialize();
+
+    this.swiper = this.swiperEl.swiper;
+
+    this.initSlides();
   }
-  ngOnChanges(changes: SimpleChanges) {
-    console.log(this.slides)
-    if (changes['slides']) {
-      this.updateSwiper();
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes["slides"] && this.swiper) {
+      this.initSlides();
     }
   }
 
-  private updateSwiper() {
-    // Option 1: Using Swiper instance (if you have access)
-    if (this.swiperInstance) {
-      this.swiperInstance.update();
-    }
-
-    // Option 2: Triggering change detection (fallback)
-    this.changeDetectorRef.detectChanges();
+  initSlides(): void {
+    this.swiper.removeAllSlides();
+    this.vSlides = this.generateSlides();
+    this.vSlides.forEach((item: HTMLElement): void => {
+      this.swiper.appendSlide(item);
+    });
   }
+  generateSlides(): HTMLElement[] {
+    const array: HTMLElement[] = [];
+    this.slides.forEach((item: Image): void => {
+      const swiperSlide = this.renderer.createElement('swiper-slide');
 
+      const div = this.renderer.createElement('div');
+      this.renderer.setStyle(div, 'height', `${this.height}px`);
+      this.renderer.addClass(div, 'swiper-image');
 
+      const img = this.renderer.createElement('img');
+      this.renderer.setStyle(img, 'width', '100%');
+      this.renderer.setStyle(img, 'height', '100%');
+      this.renderer.setStyle(img, 'object-fit', 'cover');
+      this.renderer.setAttribute(img, 'src', `data:image/jpeg;base64,${item.getImage()}`);
+      this.renderer.setAttribute(img, 'alt', '');
+
+      this.renderer.appendChild(div, img);
+      this.renderer.appendChild(swiperSlide, div);
+      array.push(swiperSlide);
+    });
+    return array;
+  }
 }

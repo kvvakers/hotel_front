@@ -1,16 +1,16 @@
-export class RoomImage {
-  private id!: number;
+export class Image {
+  private imageId!: number;
   private image!: string;
   private roomId!: number;
 
-  constructor(id: number, image: string, roomId: number) {
-    this.id = id;
+  constructor(imageId: number, image: string, roomId: number) {
+    this.imageId = imageId;
     this.image = image;
     this.roomId = roomId;
   }
 
   getId(): number {
-    return this.id;
+    return this.imageId;
   }
   getImage(): string {
     return this.image;

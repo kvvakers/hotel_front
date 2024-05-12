@@ -14,14 +14,18 @@
     </div>
   </div>
   <div>
-    <app-search (roomItemsChanged)="onRoomsItemsChanged($event)"/>
+    <app-search
+      (roomItemsChanged)="onRoomsItemsChanged($event)"
+      (startDateChanged)="onStartDateChanged($event)"
+      (endDateChanged)="onEndDateChanged($event)"
+    />
     <ul *ngIf="hotel.getRoomList().length > 0" style="margin-top: 32px" class="_flex _fd-col _row-gap-16">
       <li *ngFor="let item of hotel.getRoomList()">
        <div class="_flex _column-gap-48 _ai-c">
          <h2>{{item.getRoomId()}} room</h2>
          <div>{{item.getBedNumbers()}} bed numbers</div>
          <div>{{item.getPrice()}} dollars</div>
-         <app-button>Book</app-button>
+         <app-button (click)="book(item.getId())">Book</app-button>
          <div *ngIf="item.getImages().length > 0" style="max-width: 300px">
            <app-slider [slides]="item.getImages()" [height]="200" />
          </div>

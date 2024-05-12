@@ -1,6 +1,6 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {SearchComponent} from "./components/search/search.component";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {select, Store} from "@ngrx/store";
 import {selectHotelList} from "../../services/store/hotelList/hotelList.selectors";
 import {HotelItem} from "../../models/hotel-item";
@@ -11,6 +11,8 @@ import {ButtonComponent} from "../../controls/button/button.component";
 import {RoomsService} from "../../services/api/rooms/rooms.service";
 import {setHotelList} from "../../services/store/hotelList/hotelList.actions";
 import {ImageSliderComponent} from "../../controls/image-slider/image-slider.component";
+import {Deal} from "../../models/deal";
+import {selectIsAuthorized} from "../../services/store/account/account.selectors";
 
 @Component({
   selector: 'app-hotel-item',
@@ -32,7 +34,9 @@ export class HotelItemComponent implements OnInit, OnDestroy {
   private hotels$: Observable<HotelItem[]> | undefined;
   private hotelsSubscription: Subscription | undefined;
   private routeSubscription: Subscription | undefined;
-  constructor(private route: ActivatedRoute, private store: Store) { }
+  private startDate!: String;
+  private endDate!: String;
+  constructor(private route: ActivatedRoute, private router: Router, private store: Store, private roomService: RoomsService) {}
 
   ngOnInit(): void {
    this.routeSubscription =  this.route.params.subscribe(params => {
@@ -64,6 +68,25 @@ export class HotelItemComponent implements OnInit, OnDestroy {
       this.hotel.getRating(),
       roomItems
     )
+  }
 
+  onStartDateChanged(value: String): void {
+    this.startDate = value;
+  }
+  onEndDateChanged(value: String): void {
+    this.endDate = value;
+  }
+  book(id: number): void {
+    const temp: Subscription = this.store.select(selectIsAuthorized).subscribe((data: boolean): void => {
+      if (data) {
+        this.roomService.book(new Deal(id, this.startDate, this.endDate)).subscribe(data => {
+          temp.unsubscribe();
+        });
+      } else {
+        this.router.navigate(["account/auth"]).then((): void => {
+          temp.unsubscribe()
+        });
+      }
+    });
   }
 }

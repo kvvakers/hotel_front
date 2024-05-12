@@ -25,6 +25,8 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class SearchComponent implements OnInit{
   @Output() roomItemsChanged = new EventEmitter<RoomItem[]>();
+  @Output() startDateChanged = new EventEmitter<String>();
+  @Output() endDateChanged = new EventEmitter<String>();
   counter:number = 1;
   hotelId: number = 0;
   startDate:String = '';
@@ -37,12 +39,16 @@ export class SearchComponent implements OnInit{
     this.route.params.subscribe(params => {
       this.hotelId = params['id'];
     });
+    this.startDateChanged.emit(this.startDate);
+    this.endDateChanged.emit(this.endDate);
   }
   startDateChangeHandler(value: String):void {
     this.startDate = value;
+    this.startDateChanged.emit(value);
   }
   endDateChangeHandler(value: String):void {
     this.endDate = value;
+    this.endDateChanged.emit(value);
   }
   onCounterChangeHandler(counter:number):void {
     this.counter = counter;

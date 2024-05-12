@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import {ApiService} from "../api.service";
-import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {map, Observable, retry} from "rxjs";
+import {HttpClient} from "@angular/common/http";
+import {map, Observable} from "rxjs";
 import {HotelItem} from "../../../models/hotel-item";
 import {RoomItem} from "../../../models/room-item";
 import {IHotel} from "../../../models/hotel-interface";
 import {IRoom} from "../../../models/room-interface";
-import {RoomImage} from "../../../models/room-image";
-import {IRoomImage} from "../../../models/room-image-interface";
+import {Image} from "../../../models/image";
+import {IImage} from "../../../models/image-interface";
 
 @Injectable({
   providedIn: 'root'
@@ -29,13 +29,13 @@ export class HotelsService extends ApiService {
   getMyHotels() : Observable<HotelItem[]> {
     this.endpoint = "hotels/my/";
 
-    this.headers = this.headers = this.getHeaders();
+    this.headers = this.getHeaders();
 
     return this.getRequest();
   }
   getHotelById(id: number) : Observable<HotelItem> {
     this.endpoint = `hotels/my/by?id=${id}`;
-    this.headers = this.headers = this.getHeaders();
+    this.headers = this.getHeaders();
 
     return this.httpClient
       .get<IHotel>(this.url + this.endpoint, { headers: this.headers })
@@ -52,19 +52,18 @@ export class HotelsService extends ApiService {
       );
   }
 
-  saveHotel(hotel: HotelItem) : Observable<HotelItem> {
+  saveHotel(hotel: HotelItem) : Observable<IHotel> {
     this.endpoint = "hotels";
-    this.headers = this.headers = this.getHeaders();
+    this.headers = this.getHeaders();
 
     return this.httpClient
-      .post<IHotel>(this.url + this.endpoint, hotel, { headers: this.headers })
-      .pipe(map(this.convertRespondedData));
+      .post<IHotel>(this.url + this.endpoint, hotel, { headers: this.headers });
   }
   private convertRespondedData(item: IHotel): HotelItem {
     const roomList: Array<RoomItem> = [];
     item.roomList.forEach((el: IRoom): void => {
-      const images: RoomImage[] = el.images?.map((image: IRoomImage) => new RoomImage(image.id, image.image, image.roomId)) || [];
-      roomList.push(new RoomItem(el.id, el.roomId, el.bedNumbers, el.price, el.hotelId, images));
+      const images: Image[] = el.images?.map((image: IImage) => new Image(image.imageId, image.image, image.roomId)) || [];
+      roomList.push(new RoomItem(el.id, el.roomId, el.bedNumbers, el.price, el.hotelId, images, el.status));
     });
     return new HotelItem(
       item.hotelId,

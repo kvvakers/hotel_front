@@ -8,6 +8,6 @@
     </div>
   </div>
   <div class="_flex _column-gap-16 _ai-c">
-    <app-button>Make inaccessible</app-button>
+    <app-button (click)="changeAccessibility()">Make {{ room.getStatus() ? "in" : "" }}accessible</app-button>
   </div>
 </li>

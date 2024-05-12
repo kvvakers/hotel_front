@@ -1,4 +1,5 @@
-import {IRoomImage} from "./room-image-interface";
+import {IImage} from "./image-interface";
+import {IHotel} from "./hotel-interface";
 
 export interface IRoom {
   id: number;
@@ -6,5 +7,7 @@ export interface IRoom {
   bedNumbers: number;
   price: number;
   hotelId: number;
-  images: IRoomImage[];
+  images: IImage[];
+  status: boolean;
+  hotel: IHotel;
 }

@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from "@angular/core";
+import {Component, CUSTOM_ELEMENTS_SCHEMA, OnDestroy, OnInit} from "@angular/core";
 import {ButtonComponent} from "../../controls/button/button.component";
 import {NgClass, NgForOf, NgIf} from "@angular/common";
 import {TabHotelItemComponent} from "../account/components/tab-hotel-item/tab-hotel-item.component";
@@ -10,6 +10,8 @@ import {FormItem} from "../../models/form-item";
 import {HotelsService} from "../../services/api/hotels/hotels.service";
 import {Subscription} from "rxjs";
 import {ImageSliderComponent} from "../../controls/image-slider/image-slider.component";
+import {register, SwiperContainer} from "swiper/swiper-element";
+import {SwiperOptions} from "swiper/types";
 
 @Component({
   selector: 'app-account',
@@ -25,6 +27,7 @@ import {ImageSliderComponent} from "../../controls/image-slider/image-slider.com
         ImageSliderComponent
     ],
   templateUrl: './add-hotel.component.html',
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AddHotelComponent implements OnInit, OnDestroy {
   routeSubscription!: Subscription;
@@ -80,7 +83,7 @@ export class AddHotelComponent implements OnInit, OnDestroy {
     })
 
     if (exitCondition) return;
-    const room: RoomItem = new RoomItem(-1, -1, -1, -1, -1, []);
+    const room: RoomItem = new RoomItem(-1, -1, -1, -1, -1, [], true);
     this.hotel.addRoom(room);
     this.roomFormItems.push(new RoomFormItemStruct(room));
   }
@@ -88,10 +91,9 @@ export class AddHotelComponent implements OnInit, OnDestroy {
     this.error = this.hotel.validToSave();
     if (this.error.length > 0) { return; }
 
-    this.hotelsService.saveHotel(this.hotel).subscribe((data: HotelItem): void => {
+    this.hotelsService.saveHotel(this.hotel).subscribe((): void => {
       this.router.navigate(["account"]);
     });
-
   }
 
   /**

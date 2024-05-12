@@ -1,4 +1,4 @@
-import {RoomImage} from "./room-image";
+import {Image} from "./image";
 
 export class RoomItem {
   private id: number = -1;
@@ -6,15 +6,17 @@ export class RoomItem {
   private bedNumbers: number = -1;
   private price: number = -1;
   private hotelId: number = -1;
-  private images: RoomImage[] = [];
+  private images: Image[] = [];
+  private status: boolean = true;
 
-  constructor(id: number, roomId:number, bedNumbers: number, price: number, hotelId: number, images: RoomImage[]) {
+  constructor(id: number, roomId:number, bedNumbers: number, price: number, hotelId: number, images: Image[], status: boolean) {
     this.id = id;
     this.roomId = roomId;
     this.bedNumbers = bedNumbers;
     this.price = price;
     this.hotelId = hotelId;
     this.images = images;
+    this.status = status;
   }
   getId(): number {
     return this.id;
@@ -31,8 +33,11 @@ export class RoomItem {
   getHotelId():number {
     return this.hotelId;
   }
-  getImages():RoomImage[] {
+  getImages():Image[] {
     return this.images;
+  }
+  getStatus():boolean {
+    return this.status;
   }
 
   setId(value: number): void {
@@ -47,11 +52,17 @@ export class RoomItem {
   setPrice(value: number): void {
     this.price = value;
   }
-  setImages(values: RoomImage[]): void {
+  setImages(values: Image[]): void {
     this.images = values;
   }
   setImage(value: string): void {
-    this.images.push(new RoomImage(-1, value, this.id));
+    this.images = [
+      ...this.images,
+      new Image(-1, value, this.id)
+    ];
+  }
+  setStatus(value: boolean):void {
+    this.status = value;
   }
 
   validToSave(): boolean {

@@ -10,9 +10,10 @@ import {HotelsService} from "../../services/api/hotels/hotels.service";
 import {Router, RouterLink} from "@angular/router";
 import {HotelItem} from "../../models/hotel-item";
 import {Store} from "@ngrx/store";
-import {selectIsAuthorized} from "../../services/store/account/account.selectors";
 import {setIsAuthorized} from "../../services/store/account/account.actions";
 import {IRespondedUser} from "../../models/responded-user-interface";
+import {RoomsService} from "../../services/api/rooms/rooms.service";
+import {Deal} from "../../models/deal";
 @Component({
   selector: 'app-account',
   standalone: true,
@@ -29,15 +30,13 @@ import {IRespondedUser} from "../../models/responded-user-interface";
 export class AccountComponent implements OnInit{
   user: User = new User();
   tabStatus: Tab = Tab.HOTELS;
-  changeTab(value: Tab):void {
-    this.tabStatus = value;
-  }
-
   hotelList: HotelItemUI[] = [];
+  deals: Deal[] = [];
 
   constructor(
     private accountService: AccountService,
     private hotelService: HotelsService,
+    private roomService: RoomsService,
     private router: Router,
     private store: Store
   ) {
@@ -45,6 +44,9 @@ export class AccountComponent implements OnInit{
   ngOnInit():void {
     this.getMe();
 
+  }
+  changeTab(value: Tab):void {
+    this.tabStatus = value;
   }
 
   getMe(): void {
@@ -68,6 +70,9 @@ export class AccountComponent implements OnInit{
         this.hotelList.push(new HotelItemUI(this.hotelList.length, false, item));
       })
     });
+    this.roomService.getDeals().subscribe((data: Deal[]): void => {
+      this.deals = data;
+    })
   }
 
   ListToggleHandler(id: number) : void {

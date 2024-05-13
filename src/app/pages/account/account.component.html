@@ -10,6 +10,7 @@
       <ul class="tabs__header _flex">
         <li class="tabs__header-item" [ngClass]="tabStatus == Tab.HOTELS ? '_active' : ''" (click)="changeTab(Tab.HOTELS)">My hotels</li>
         <li class="tabs__header-item" [ngClass]="tabStatus == Tab.DEALS ? '_active' : ''" (click)="changeTab(Tab.DEALS)">My deals</li>
+        <li class="tabs__header-item" [ngClass]="tabStatus == Tab.BOOKS ? '_active' : ''" (click)="changeTab(Tab.BOOKS)">My books</li>
       </ul>
       <div class="tabs__content">
         <div class="content-tab" [ngClass]="tabStatus == Tab.HOTELS ? '_active' : ''">
@@ -24,6 +25,18 @@
               <li *ngFor="let item of deals" class="_flex _column-gap-32 _ai-c">
                 <div class="tab-deal-item__email"><span class="_title">email:</span> {{ item.getEmail() }}</div>
                 <div class="tab-deal-item__phone"><span class="_title">phone:</span> {{ item.getPhone() }}</div>
+                <div class="tab-deal-item__data">{{ item.getDateBegin() }} - {{ item.getDateEnd() }}</div>
+                <div class="tab-deal-item__hotel"><span class="_title">hotel:</span> {{ item.getHotel().hotelName }}</div>
+                <div class="tab-deal-item__room"><span class="_title">room number:</span> {{ item.getRoom().roomId }}</div>
+                <div class="tab-deal-item__total-price"><span class="_title">total:</span> {{ item.getTotal() }}</div>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="content-tab" [ngClass]="tabStatus == Tab.BOOKS ? '_active' : ''">
+          <div class="content-tab__deal-item tab-deal-item">
+            <ul class="_flex _row-gap-32 _fd-col">
+              <li *ngFor="let item of books" class="_flex _column-gap-32 _ai-c">
                 <div class="tab-deal-item__data">{{ item.getDateBegin() }} - {{ item.getDateEnd() }}</div>
                 <div class="tab-deal-item__hotel"><span class="_title">hotel:</span> {{ item.getHotel().hotelName }}</div>
                 <div class="tab-deal-item__room"><span class="_title">room number:</span> {{ item.getRoom().roomId }}</div>

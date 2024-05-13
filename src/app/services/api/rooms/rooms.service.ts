@@ -27,34 +27,6 @@ export class RoomsService extends ApiService {
     this.headers = this.getHeaders();
     return this.httpClient.get(this.url + this.endpoint, { headers: this.headers });
   }
-  book(deal: Deal) {
-    this.endpoint = "deals";
-    this.headers = this.getHeaders();
-
-    return this.httpClient.post(this.url + this.endpoint, deal, { headers: this.headers });
-  }
-  getDeals(): Observable<Deal[]> {
-    this.endpoint = "deals";
-    this.headers = this.getHeaders();
-
-    return this.httpClient.get<IDeal[]>(this.url + this.endpoint, { headers: this.headers })
-      .pipe(
-        map((items: IDeal[]) => {
-          return items.map((item: IDeal) => {
-            return new Deal(
-              item.roomId,
-              new Date(item.dateBegin).toISOString().split("T")[0],
-              new Date(item.dateEnd).toISOString().split("T")[0],
-              item.email,
-              item.phone,
-              item.room,
-              item.room.hotel,
-              item.total
-            );
-          });
-        })
-      );
-  }
 
   private getRequest() : Observable<RoomItem[]> {
     return this.httpClient

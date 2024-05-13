@@ -13,6 +13,7 @@ import {setHotelList} from "../../services/store/hotelList/hotelList.actions";
 import {ImageSliderComponent} from "../../controls/image-slider/image-slider.component";
 import {Deal} from "../../models/deal";
 import {selectIsAuthorized} from "../../services/store/account/account.selectors";
+import {DealsService} from "../../services/api/deals/deals.service";
 
 @Component({
   selector: 'app-hotel-item',
@@ -36,7 +37,7 @@ export class HotelItemComponent implements OnInit, OnDestroy {
   private routeSubscription: Subscription | undefined;
   private startDate!: String;
   private endDate!: String;
-  constructor(private route: ActivatedRoute, private router: Router, private store: Store, private roomService: RoomsService) {}
+  constructor(private route: ActivatedRoute, private router: Router, private store: Store, private dealsService: DealsService) {}
 
   ngOnInit(): void {
    this.routeSubscription =  this.route.params.subscribe(params => {
@@ -79,8 +80,11 @@ export class HotelItemComponent implements OnInit, OnDestroy {
   book(id: number): void {
     const temp: Subscription = this.store.select(selectIsAuthorized).subscribe((data: boolean): void => {
       if (data) {
-        this.roomService.book(new Deal(id, this.startDate, this.endDate)).subscribe(data => {
+        this.dealsService.book(new Deal(id, this.startDate, this.endDate)).subscribe(data => {
+
+        }, error => {
           temp.unsubscribe();
+          if (error.status == 200) alert("book success!");
         });
       } else {
         this.router.navigate(["account/auth"]).then((): void => {

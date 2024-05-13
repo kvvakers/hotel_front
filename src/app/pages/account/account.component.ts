@@ -14,6 +14,7 @@ import {setIsAuthorized} from "../../services/store/account/account.actions";
 import {IRespondedUser} from "../../models/responded-user-interface";
 import {RoomsService} from "../../services/api/rooms/rooms.service";
 import {Deal} from "../../models/deal";
+import {DealsService} from "../../services/api/deals/deals.service";
 @Component({
   selector: 'app-account',
   standalone: true,
@@ -32,11 +33,12 @@ export class AccountComponent implements OnInit{
   tabStatus: Tab = Tab.HOTELS;
   hotelList: HotelItemUI[] = [];
   deals: Deal[] = [];
+  books: Deal[] = [];
 
   constructor(
     private accountService: AccountService,
     private hotelService: HotelsService,
-    private roomService: RoomsService,
+    private dealsService: DealsService,
     private router: Router,
     private store: Store
   ) {
@@ -70,8 +72,11 @@ export class AccountComponent implements OnInit{
         this.hotelList.push(new HotelItemUI(this.hotelList.length, false, item));
       })
     });
-    this.roomService.getDeals().subscribe((data: Deal[]): void => {
+    this.dealsService.getDeals().subscribe((data: Deal[]): void => {
       this.deals = data;
+    })
+    this.dealsService.getBooks().subscribe((data: Deal[]): void => {
+      this.books = data;
     })
   }
 
